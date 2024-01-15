@@ -58,11 +58,11 @@ if(!isset($_SESSION['user_email'])){
 
                             $row_user = mysqli_fetch_array($run_user);
 
-                            //$username = $row_user['user_name'];
-                            //$user_profile_image = $row_user['user_profile'];
+                            $username = $row_user['user_name'];
+                            $user_profile_image = $row_user['user_profile'];
                         }
                         $total_messages = "select * from users_chat where (sender_username='$user_name'
-                        AND receiver_username='$user_name') OR (receiver_username='$user_name' AND sender_username='$user_name')";
+                        AND receiver_username='$username') OR (receiver_username='$user_name' AND sender_username='$username')";
                         $run_messages = mysqli_query($con, $total_messages);
                         $total = mysqli_num_rows($run_messages);
                     ?>
@@ -91,7 +91,7 @@ if(!isset($_SESSION['user_email'])){
                     <div id = "scrolling_to_bottom" class = "col-md-12 right-header-contentChat">
                         <?php
                             $update_msg = mysqli_query($con, "UPDATE users_chat SET msg_status='read' 
-                            WHERE sender_username='$user_name' AND receiver_username='$user_name'");
+                            WHERE sender_username='$username' AND receiver_username='$username'");
 
                             $sel_msg = "select * from users_chat where (sender_username='$user_name'
                             AND receiver_username='$user_name') OR (receiver_username='$user_name' AND
