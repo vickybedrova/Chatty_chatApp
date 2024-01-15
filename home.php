@@ -2,6 +2,7 @@
 <?php
 session_start();
 include("include/connection.php");
+
 if(!isset($_SESSION['user_email'])){
     header("location: login.php");
 }
@@ -9,10 +10,10 @@ if(!isset($_SESSION['user_email'])){
 <html>
     <head>
         <title>Chatty Home</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <div class = "container main-section">
@@ -26,7 +27,7 @@ if(!isset($_SESSION['user_email'])){
                 </div>
                 <div class = "left-chat">
                     <ul>
-                        <?php include("include/get_users.data.php");?>
+                        <?php include("include/get_users_data.php");?>
                     </ul>
                 </div>
             </div>
@@ -41,10 +42,13 @@ if(!isset($_SESSION['user_email'])){
 
                         $user_id = $row['user_id'];
                         $user_name = $row['user_name'];
+                        $user_profile_image = $row['user_profile'];
+                        $username = $row['user_name'];
+
                     ?>
                     <!-- getting user data on whom the user clicks -->
                     <?php
-                        if(isset($GET['user_name'])){
+                        if(isset($_GET['user_name'])){
                             global $con;
                             
                             $get_username = $_GET['user_name'];
@@ -54,21 +58,21 @@ if(!isset($_SESSION['user_email'])){
 
                             $row_user = mysqli_fetch_array($run_user);
 
-                            $username = $row_user['user_name'];
-                            $user_profile_image = $row_user['user_profile'];
+                            //$username = $row_user['user_name'];
+                            //$user_profile_image = $row_user['user_profile'];
                         }
                         $total_messages = "select * from users_chat where (sender_username='$user_name'
-                        AND receiver_username='$username') OR (receiver_username='$user_name' AND sender_username='$username')";
+                        AND receiver_username='$user_name') OR (receiver_username='$user_name' AND sender_username='$user_name')";
                         $run_messages = mysqli_query($con, $total_messages);
                         $total = mysqli_num_rows($run_messages);
                     ?>
                     <div class = "col-md-12 right-header">
                         <div class = "right-header-img">
-                            <img src="<?php echo"$user_profile_image"; ?>">
+                            <?php echo "<img src='$user_profile_image'>"; ?>
                         </div>
                         <div class = "right-header-detail">
                             <form method="post">
-                                <p><?php echo "$username"; ?></p>
+                                <p><?php echo "$user_name"; ?></p>
                                 <span><?php echo $total; ?> messages</span>&nbsp &nbsp
                                 <button name = "logout" class = "btn btn-danger">Logout</button>
                             </form>
@@ -87,11 +91,11 @@ if(!isset($_SESSION['user_email'])){
                     <div id = "scrolling_to_bottom" class = "col-md-12 right-header-contentChat">
                         <?php
                             $update_msg = mysqli_query($con, "UPDATE users_chat SET msg_status='read' 
-                            WHERE sender_username='$username' AND receiver_username='$user_name'");
+                            WHERE sender_username='$user_name' AND receiver_username='$user_name'");
 
                             $sel_msg = "select * from users_chat where (sender_username='$user_name'
-                            AND receiver_username='$username') OR (receiver_username='$user_name' AND
-                            sender_username='$username') ORDER by 1 ASC";
+                            AND receiver_username='$user_name') OR (receiver_username='$user_name' AND
+                            sender_username='$user_name') ORDER by 1 ASC";
 
                             $run_msg = mysqli_query($con, $sel_msg);
 
