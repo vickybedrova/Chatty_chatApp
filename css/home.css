@@ -24,9 +24,10 @@
 .chat-left-img,.chat-left-detail{
     float:left;
 }
+/*
 .left-chat{
-    overflow-y:scroll;
-}
+  overflow-y:scroll;
+}*/
 .left-chat ul{
     overflow:hidden;
     padding:0px;
@@ -128,14 +129,15 @@
     width: 100%;
     background-color: #8c434b;
 }
-.right-chat-textbox input[type="text"]{
-    height:80%;
-    width:300px%;
-    border:2px solid #3d85ca;
-    border-radius:5px;
-    padding:0px 40px;
+.right-chat-textbox input[type="text"] {
+    height: 80%;
+    width: 300px; 
+    border: 2px solid #3d85ca;
+    border-radius: 5px;
+    padding: 0 10px; 
     border: 1px solid #c1c1c1;
 }
+
 .right-chat-textbox button{
     height: 40px;
     width:70px;
