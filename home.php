@@ -10,9 +10,9 @@ if(!isset($_SESSION['user_email'])){
 <html>
     <head>
         <title>Chatty Home</title>
+        <link rel="stylesheet" type="text/css" href="css/home.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/home.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -42,8 +42,8 @@ if(!isset($_SESSION['user_email'])){
 
                         $user_id = $row['user_id'];
                         $user_name = $row['user_name'];
-                        $user_profile_image = $row['user_profile'];
-                        $username = $row['user_name'];
+                        //$user_profile_image = $row['user_profile'];
+                       // $username = $row['user_name'];
 
                     ?>
                     <!-- getting user data on whom the user clicks -->
@@ -71,12 +71,7 @@ if(!isset($_SESSION['user_email'])){
                             <?php echo "<img src='$user_profile_image'>"; ?>
                         </div>
                         <div class = "right-header-detail">
-                            <form method="post">
-                                <p><?php echo "$user_name"; ?></p>
-                                <span><?php echo $total; ?> messages</span>&nbsp &nbsp
-                                <button name = "logout" class = "btn btn-danger">Logout</button>
-                            </form>
-                            <?php
+                        <?php
                                 if(isset($_POST['logout'])){
                                     $update_msg = mysqli_query($con, "UPDATE users SET log_in='Offline'
                                     WHERE user_name='$user_name'");
@@ -84,6 +79,12 @@ if(!isset($_SESSION['user_email'])){
                                     exit();
                                 }
                             ?>
+                            <form method="post">
+                                <p><?php echo "$username"; ?></p>
+                                <span><?php echo $total; ?> messages</span>&nbsp &nbsp
+                                <button name = "logout" class = "btn btn-danger">Logout</button>
+                            </form>
+                           
                         </div>
                     </div>
                 </div>
@@ -91,11 +92,11 @@ if(!isset($_SESSION['user_email'])){
                     <div id = "scrolling_to_bottom" class = "col-md-12 right-header-contentChat">
                         <?php
                             $update_msg = mysqli_query($con, "UPDATE users_chat SET msg_status='read' 
-                            WHERE sender_username='$username' AND receiver_username='$username'");
+                            WHERE sender_username='$username' AND receiver_username='$user_name'");
 
                             $sel_msg = "select * from users_chat where (sender_username='$user_name'
-                            AND receiver_username='$user_name') OR (receiver_username='$user_name' AND
-                            sender_username='$user_name') ORDER by 1 ASC";
+                            AND receiver_username='$username') OR (receiver_username='$user_name' AND
+                            sender_username='$username') ORDER by 1 ASC";
 
                             $run_msg = mysqli_query($con, $sel_msg);
 
@@ -106,7 +107,7 @@ if(!isset($_SESSION['user_email'])){
                                 $msg_date = $row['msg_date'];
                             
                         ?>
-                        <ul>
+                         <ul>
                             <?php
                                 if($user_name == $sender_username AND $username == $receiver_username){
                                     echo "
@@ -139,7 +140,7 @@ if(!isset($_SESSION['user_email'])){
                     <div class = "col-md-12 right-chat-textbox">
                         <form method = "post">
                             <input autocomplete=off type = "text" name ="msg_content" placeholder="Write your thoughts">
-                            <button class = "btn" name="submit"><i class = "fa-fa-telegram" aria-hidden="true"></i></button>
+                            <button class = "btn" name="submit"><i class = "fa fa-telegram" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>
@@ -163,9 +164,11 @@ if(!isset($_SESSION['user_email'])){
                     </div>
                 ";
             }else{
-                $insert = "insert into users_chats(sender_username, receiver_username, msg_conent, msg_status, msg_date) 
+                $insert = "insert into users_chat(sender_username, receiver_username, msg_content, msg_status, msg_date) 
                 values('$user_name', '$username', '$msg', 'unread', NOW())";
                 $run_insert = mysqli_query($con, $insert);
+
+                exit();
             }
         }
     ?>

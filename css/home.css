@@ -1,15 +1,16 @@
 .main-section{
-    border: 1px solid #000;
+    border: 1px solid #ffff;
     width: 100%;
+    min-height: 100vh;
 }
 .left-sidebar{
-    background: #3a3a3a;
-    padding: 0px;
+    background-color: #8c434b;
+    padding: 0;
 }
 .searchbox{
     width:100%;
     padding:27px 10px;
-    border-bottom:2px solid #0000;
+    border-bottom:2px solid #8c434b;
 }
 .form-control,.search-icon,.search-icon:hover{
     background-color:#6a6c75;
@@ -63,10 +64,11 @@
     color: #E38968;
 }
 .right-sidebar{
-    border-left:2px solid #000;
+    border-left:2px solid #ffffff;
 }
 .right-header{
-    border-bottom:2px solid #000;
+    height: 100px;
+    border-bottom:2px solid #ffffff;
     margin: 0px;
     padding: 0px;
 }
@@ -80,8 +82,8 @@
 }
 .right-header{
     padding:20px;
-    height:90px;
-    background-color:#3a3a3a;
+    height:100px;
+    background-color:#8c434b;
 }
 .right-header-detail p{
     margin:0px;
@@ -103,8 +105,9 @@
     margin-right:35px;
 }
 .right-header-contentChat{
+    border: 1px solid #000;
     overflow-y: scroll;
-    background-color:#ffffff;
+    background-color:#fff;
     position:relative;
 }
 .right-header-contentChat ul li{
@@ -123,14 +126,14 @@
 .right-chat-textbox{
     padding:15px 30px;
     width: 100%;
-    background: #3a3a3a;
+    background-color: #8c434b;
 }
-.right-chat-textbox input{
+.right-chat-textbox input[type="text"]{
     height:80%;
-    width:40px;
+    width:300px%;
     border:2px solid #3d85ca;
     border-radius:5px;
-    padding:0px 10px;
+    padding:0px 40px;
     border: 1px solid #c1c1c1;
 }
 .right-chat-textbox button{
@@ -169,6 +172,11 @@
     bottom: 150px;
     border: 15px solid transparent;
     border-bottom-color: #94C2ED;
+}
+.left-sidebar,
+.right-header-contentChat {
+    flex: 1;
+    overflow-y: auto;
 }
 @media only screen and (max-width:320px){
     .main-section{

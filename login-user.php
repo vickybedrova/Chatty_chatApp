@@ -23,7 +23,7 @@ include("include/connection.php");
 
             $user_name = $row['user_name'];
             
-            echo "<script>window.open('home.php?username=$user_name', '_self')</script>";
+            echo "<script>window.open('home.php?user_name=$user_name', '_self')</script>";
         }else{
             echo "
             <div class = 'alert alert-danger'> 
